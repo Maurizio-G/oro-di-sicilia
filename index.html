@@ -42,6 +42,17 @@
 
     h2 {
       color: #b8741b;
+      margin-bottom: 0.25rem;
+    }
+
+    h3 {
+      margin: 0.5rem 0 0.25rem;
+      color: #b8741b;
+    }
+
+    small em {
+      color: #666;
+      font-size: 0.9rem;
     }
 
     footer {
@@ -51,38 +62,77 @@
       padding: 1rem;
       font-size: 0.9rem;
     }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .product-card {
+      background: #fff5e6;
+      padding: 1rem;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .product-card img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+    }
   </style>
 </head>
 <body>
   <header>
     <h1>Oro di Sicilia</h1>
-    <p>Frisches Obst & Gemüse direkt aus Sizilien</p>
+    <p>Frisches Obst & Gemüse direkt aus Sizilien<br><small><em>Frutta e verdura fresca direttamente dalla Sicilia</em></small></p>
   </header>
 
   <main>
     <section>
       <h2>Oro di Sicilia – Der Geschmack Siziliens</h2>
+      <small><em>Il gusto autentico della Sicilia</em></small>
       <p>
         Frisches Obst und Gemüse direkt aus Sizilien – mit Liebe angebaut, von Hand geerntet und ohne Umwege zu dir gebracht.
-        Bei <strong>Oro di Sicilia</strong> findest du sonnenverwöhnte Zitrusfrüchte, aromatische Tomaten, knackiges Gemüse und vieles mehr –
-        100 % natürlich, voller Geschmack und nach traditioneller sizilianischer Landwirtschaft.
-        Entdecke die Vielfalt unserer Heimat – direkt vom Feld auf deinen Teller.
+        <strong>Oro di Sicilia</strong> ist ein kleines Familienunternehmen mit Wurzeln in Sizilien.
+        Wir stehen für ehrliche, nachhaltige Landwirtschaft und bringen dir den echten Geschmack unserer Heimat direkt nach Hause.
       </p>
     </section>
 
     <section>
-      <h2>Oro di Sicilia – Il gusto autentico della Sicilia</h2>
-      <p>
-        Frutta e verdura fresche direttamente dalla Sicilia – coltivate con passione, raccolte a mano e consegnate senza intermediari.
-        Con <strong>Oro di Sicilia</strong> porti a casa agrumi baciati dal sole, pomodori profumati, ortaggi croccanti e molto altro – 100% naturali,
-        ricchi di sapore e secondo la tradizione agricola siciliana.
-        Scopri i sapori della nostra terra – dal campo alla tua tavola.
-      </p>
+      <h2>Unsere Produkte</h2>
+      <small><em>I nostri prodotti</em></small>
+      <div class="product-grid">
+        <div class="product-card">
+          <img src="/mnt/data/WhatsApp Image 2025-05-29 at 12.14.44.jpeg" alt="Blut-Orangen">
+          <h3>Blut-Orangen (Tarocco)</h3>
+          <p>3,00 € / kg</p>
+        </div>
+        <div class="product-card">
+          <img src="/mnt/data/WhatsApp Image 2025-05-29 at 12.13.41.jpeg" alt="Zitronen">
+          <h3>Zitronen</h3>
+          <p>3,99 € / kg</p>
+        </div>
+        <div class="product-card">
+          <img src="/mnt/data/WhatsApp Image 2025-05-29 at 12.14.13.jpeg" alt="Clementinen">
+          <h3>Clementinen</h3>
+          <p>2,99 € / kg</p>
+        </div>
+        <div class="product-card">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Cedro.jpg/800px-Cedro.jpg" alt="Ceder">
+          <h3>Ceder</h3>
+          <p>5,00–6,00 € / Stück</p>
+        </div>
+      </div>
     </section>
   </main>
 
   <footer>
-    &copy; 2025 Oro di Sicilia. Alle Rechte vorbehalten.
+    &copy; 2025 Oro di Sicilia. Alle Rechte vorbehalten. <br>
+    <small><em>Siamo un'azienda a conduzione familiare. Parliamo anche italiano!</em></small>
   </footer>
 </body>
 </html>
