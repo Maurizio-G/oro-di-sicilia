@@ -1,354 +1,133 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Oro di Sicilia - Prodotti Tipici Siciliani</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            background-color: #f8f9fa;
-            color: #333;
-        }
-
-        header {
-            background: linear-gradient(135deg, #ff6b35, #f7931e);
-            color: white;
-            padding: 2rem 0;
-            text-align: center;
-        }
-
-        .logo {
-            font-size: 2.5rem;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-        }
-
-        nav {
-            background-color: #2c3e50;
-            padding: 1rem 0;
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-            transition: color 0.3s;
-        }
-
-        nav a:hover {
-            color: #f7931e;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .product-card {
-            background: white;
-            border-radius: 10px;
-            padding: 1.5rem;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            text-align: center;
-            transition: transform 0.3s;
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .product-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin: 1rem 0;
-        }
-
-        .product-card h3 {
-            color: #ff6b35;
-            margin-bottom: 0.5rem;
-        }
-
-        .product-card p {
-            color: #2c3e50;
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
-
-        footer {
-            background-color: #2c3e50;
-            color: white;
-            text-align: center;
-            padding: 2rem;
-            margin-top: 3rem;
-        }
-
-        footer a {
-            color: white;
-            text-decoration: underline;
-        }
-
-        @media (max-width: 768px) {
-            nav ul {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            
-            .container {
-                padding: 1rem;
-            }
-            
-            .products-grid {
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            }
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <div class="logo">Oro di Sicilia</div>
-        <p>Autentische sizilianische Spezialitäten</p>
-    </header>
-
-    <nav>
-        <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#produkte">Produkte</a></li>
-            <li><a href="#ueber-uns">Über Uns</a></li>
-            <li><a href="#kontakt">Kontakt</a></li>
-        </ul>
-    </nav>
-
-    <main>
-        <section id="produkte">
-            <div class="container">
-                <h2 style="text-align: center; margin-bottom: 2rem; color: #2c3e50;">Unsere Produkte</h2>
-                
-                <div class="products-grid">
-                    <div class="product-card">
-                        <h3>Tropea Zwiebeln</h3>
-                        <img src="Tropea-Zwiebel.jpg" alt="Tropea Zwiebeln" />
-                        <p>6,00 € / Bund</p>
-                    </div>
-                    
-                    <div class="product-card">
-                        <h3>Weiße Zwiebel</h3>
-                        <img src="Weiss-Zwiebel.jpg" alt="Weiße Zwiebel" />
-                        <p>3,00 € / kg</p>
-                    </div>
-                    
-                    <div class="product-card">
-                        <h3>Riesen Zwiebel (Giaratana)</h3>
-                        <img src="Giaratana.jpg" alt="Riesen Zwiebel (Giaratana)" />
-                        <p>4,00 € / kg</p>
-                    </div>
-                    
-                    <div class="product-card">
-                        <h3>Spitz Paprika</h3>
-                        <img src="Spitz-Paprika.jpg" alt="Spitz Paprika" />
-                        <p>2,99 € / kg</p>
-                    </div>
-                    
-                    <div class="product-card">
-                        <h3>Paprika (normal)</h3>
-                        <img src="Paprika-Normal.jpg" alt="Paprika (Normal)" />
-                        <p>3,99 € / kg</p>
-                    </div>
-                    
-                    <div class="product-card">
-                        <h3>Lila Blumenkohl</h3>
-                        <img src="Lila-Blumenkohl.jpg" alt="Lila Blumenkohl" />
-                        <p>Preis variabel</p>
-                    </div>
-                    
-                    <div class="product-card">
-                        <h3>Stängelkohl</h3>
-                        <img src="Staengelkohl.jpg" alt="Stängelkohl" />
-                        <p>Preis variabel</p>
-                    </div>
-                    
-                    <div class="product-card">
-                        <h3>Olivenöl</h3>
-                        <img src="Oliven-Oel.jpg" alt="Oliven Öl" />
-                        <p>18,00 € / L</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer id="kontakt">
-        <div class="container">
-            <p>&copy; 2025 Oro di Sicilia. Alle Rechte vorbehalten.</p>
-            <p><small><em>Siamo un'azienda a conduzione familiare. Parliamo anche italiano!</em></small></p>
-            <div style="margin-top: 1rem;">
-                <p>📧 E-Mail: <a href="mailto:orodisicilia0@gmail.com">orodisicilia0@gmail.com</a></p>
-                <p>☎️ Telefon: <a href="tel:+4915731156957">+4915731156957</a></p>
-            </div>
-        </div>
-    </footer>
-</body>
-</html><!DOCTYPE html>
-<html lang="it">
-<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Oro di Sicilia Chatbot</title>
-<link rel="stylesheet" href="style.css">
+<title>Oro di Sicilia - Prodotti Tipici Siciliani</title>
+<style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: Arial, sans-serif; line-height:1.6; background-color:#f8f9fa; color:#333; }
+    header { background: linear-gradient(135deg,#ff6b35,#f7931e); color:white; padding:2rem 0; text-align:center; }
+    header h1 { font-size:2.5rem; margin-bottom:0.5rem; }
+    nav { background-color:#2c3e50; padding:1rem 0; }
+    nav ul { list-style:none; display:flex; justify-content:center; gap:2rem; }
+    nav a { color:white; text-decoration:none; font-weight:bold; transition: color 0.3s; }
+    nav a:hover { color:#f7931e; }
+    .container { max-width:1200px; margin:0 auto; padding:2rem; }
+    .products-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:2rem; margin-top:2rem; }
+    .product-card { background:white; border-radius:10px; padding:1.5rem; box-shadow:0 4px 6px rgba(0,0,0,0.1); text-align:center; transition: transform 0.3s; }
+    .product-card:hover { transform:translateY(-5px); }
+    .product-card img { width:100%; height:200px; object-fit:cover; border-radius:8px; margin:1rem 0; }
+    .product-card h3 { color:#ff6b35; margin-bottom:0.5rem; }
+    .product-card p { color:#2c3e50; font-weight:bold; font-size:1.1rem; }
+    footer { background-color:#2c3e50; color:white; text-align:center; padding:2rem; margin-top:3rem; }
+    footer a { color:white; text-decoration:underline; }
+    @media (max-width:768px) {
+        nav ul { flex-direction:column; gap:1rem; }
+        .container { padding:1rem; }
+        .products-grid { grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); }
+    }
+
+    /* Chatbot Styles */
+    #chatBubble { position:fixed; bottom:24px; right:24px; background:#ff6b35; color:white; width:50px; height:50px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:24px; cursor:pointer; z-index:1000; }
+    #chatWindow { position:fixed; bottom:80px; right:24px; width:320px; max-width:90%; background:white; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.2); display:none; flex-direction:column; overflow:hidden; z-index:1000; }
+    #chatHeader { background:#ff6b35; color:white; padding:0.8rem 1rem; display:flex; align-items:center; justify-content:space-between; font-weight:bold; }
+    #messages { padding:1rem; height:300px; overflow-y:auto; display:flex; flex-direction:column; gap:0.5rem; }
+    #controls { display:flex; border-top:1px solid #ccc; }
+    #userInput { flex:1; padding:0.5rem; border:none; outline:none; }
+    #sendBtn { padding:0.5rem 1rem; background:#ff6b35; color:white; border:none; cursor:pointer; }
+    .msg-user { align-self:flex-end; background:#e3f2fd; color:#333; padding:0.5rem 0.8rem; border-radius:12px; max-width:80%; }
+    .msg-bot { align-self:flex-start; background:#fff8e1; color:#333; padding:0.5rem 0.8rem; border-radius:12px; max-width:80%; }
+</style>
 </head>
 <body>
-<div id="chatBubble">💬</div>
+
+<header>
+    <h1>Oro di Sicilia</h1>
+    <p>Frisches Obst & Gemüse direkt aus Sizilien<br><small><em>Frutta e verdura fresca direttamente dalla Sicilia</em></small></p>
+</header>
+
+<nav>
+    <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#produkte">Produkte</a></li>
+        <li><a href="#ueber-uns">Über Uns</a></li>
+        <li><a href="#kontakt">Kontakt</a></li>
+    </ul>
+</nav>
+
+<main>
+    <section id="produkte" class="container">
+        <h2 style="text-align:center; color:#2c3e50; margin-bottom:2rem;">Unsere Produkte</h2>
+        <div class="products-grid">
+            <!-- Beispielprodukte -->
+            <div class="product-card"><h3>Blut-Orangen (Tarocco)</h3><img src="Tarocco.jpg" alt="Blut-Orangen (Tarocco)"><p>3,00 € / kg</p></div>
+            <div class="product-card"><h3>Navel Orangen</h3><img src="Navel.jpg" alt="Navel Orangen"><p>3,00 € / kg</p></div>
+            <div class="product-card"><h3>Vanille Orangen</h3><img src="Vanille.jpg" alt="Vanille Orangen"><p>3,50 € / kg</p></div>
+            <div class="product-card"><h3>Orangen Marmelade</h3><img src="Orangen Marmelade.jpg" alt="Orangen Marmelade"><p>3,99 €</p></div>
+            <div class="product-card"><h3>Zitronen</h3><img src="Zitrone.jpg" alt="Zitronen"><p>3,99 € / kg</p></div>
+            <div class="product-card"><h3>Clementinen</h3><img src="Clementini.jpg" alt="Clementinen"><p>2,99 € / kg</p></div>
+            <!-- weitere Produkte hier hinzufügen -->
+        </div>
+    </section>
+</main>
+
+<footer id="kontakt">
+    &copy; 2025 Oro di Sicilia. Alle Rechte vorbehalten.<br>
+    <small><em>Siamo un'azienda a conduzione familiare. Parliamo anche italiano!</em></small>
+    <p style="margin-top:0.5rem;">
+        📧 E-Mail: <a href="mailto:orodisicilia0@gmail.com">orodisicilia0@gmail.com</a><br>
+        ☎️ Telefon: <a href="tel:+4915731156957">+4915731156957</a>
+    </p>
+</footer>
+
+<!-- Chatbot -->
+<div id="chatBubble" title="Chat öffnen">💬</div>
 <div id="chatWindow" aria-hidden="true">
-  <div id="chatHeader">
-    <strong>Oro di Sicilia</strong>
-    <select id="langSelect">
-      <option value="IT">IT</option>
-      <option value="EN">EN</option>
-      <option value="DE">DE</option>
-    </select>
-    <button id="closeBtn">✕</button>
-  </div>
-  <div id="messages"></div>
-  <div id="controls">
-    <input id="userInput" placeholder="Scrivi un messaggio..." />
-    <button id="sendBtn">Invia</button>
-  </div>
-</div>
-<script src="chat.js"></script>
-</body>
-</html>
-
-
-<div id="chatBubble" title="Open chat">💬</div>
-
-<div id="chatWindow" aria-hidden="true">
-  <div id="chatHeader">
-    <strong>Oro di Sicilia</strong>
-    <div style="flex:1"></div>
-    <select id="langSelect">
-      <option value="IT">IT</option>
-      <option value="EN">EN</option>
-      <option value="DE">DE</option>
-    </select>
-    <button id="closeBtn" style="background:transparent;border:0;cursor:pointer">✕</button>
-  </div>
-
-  <div id="messages" aria-live="polite"></div>
-
-  <div id="controls">
-    <input id="userInput" placeholder="Type a message..." aria-label="Message" />
-    <button id="sendBtn">Send</button>
-  </div>
+    <div id="chatHeader">
+        <strong>Oro di Sicilia</strong>
+        <select id="langSelect">
+            <option value="IT">IT</option>
+            <option value="EN">EN</option>
+            <option value="DE">DE</option>
+        </select>
+        <button id="closeBtn">✕</button>
+    </div>
+    <div id="messages"></div>
+    <div id="controls">
+        <input id="userInput" placeholder="Type a message..." aria-label="Message">
+        <button id="sendBtn">Send</button>
+    </div>
 </div>
 
 <script>
-let isChatOpen = false;
-const chatBubble = document.getElementById("chatBubble");
-const chatWindow = document.getElementById("chatWindow");
-const messagesBox = document.getElementById("messages");
-const inputField = document.getElementById("userInput");
-const sendBtn = document.getElementById("sendBtn");
-const closeBtn = document.getElementById("closeBtn");
-const langSelect = document.getElementById("langSelect");
+let isChatOpen=false;
+const chatBubble=document.getElementById("chatBubble");
+const chatWindow=document.getElementById("chatWindow");
+const messagesBox=document.getElementById("messages");
+const inputField=document.getElementById("userInput");
+const sendBtn=document.getElementById("sendBtn");
+const closeBtn=document.getElementById("closeBtn");
+const langSelect=document.getElementById("langSelect");
 
-const KB = {
-    IT: {
-        oranges: "🍊 <b>Arance Siciliane</b><br>Season: Dec–Mar • Tarocco: Jan–Mar",
-        mandarins: "🍊 <b>Mandarini Siciliani</b><br>Season: Nov–Jan • Sweet and juicy",
-        tarocco: "🔴 <b>Tarocco Orange</b><br>Season: Jan–Mar • Red pulp",
-        lemons: "🍋 <b>Limoni Siciliani</b><br>Available almost all year",
-        shipping: "🚚 <b>Shipping</b><br>24–48h • Mon–Thu • Free above 50€",
-        price: "💰 <b>Prices</b><br>3kg ~25€ • 5kg ~35€ • 10kg ~60€",
-        quality: "🌱 <b>Quality</b><br>Organic • Untreated • Hand-picked",
-        contact: "📞 <b>Contact</b><br>Email: orodisicilia0@gmail.com",
-        greeting: "Ciao! Sono il bot di supporto di Oro di Sicilia. 🍊",
-        thanks: "Prego! Sempre qui per te. 🍊",
-        default: "Non ho capito. Chiedimi di arance, mandarini, spedizioni, prezzi o qualità."
-    },
-    EN: {
-        oranges: "🍊 <b>Sicilian Oranges</b><br>Season: Dec–Mar • Tarocco: Jan–Mar",
-        mandarins: "🍊 <b>Sicilian Mandarins</b><br>Season: Nov–Jan • Sweet and juicy",
-        tarocco: "🔴 <b>Tarocco Orange</b><br>Season: Jan–Mar • Red pulp",
-        lemons: "🍋 <b>Sicilian Lemons</b><br>Available almost all year",
-        shipping: "🚚 <b>Shipping</b><br>24–48h • Mon–Thu • Free above 50€",
-        price: "💰 <b>Prices</b><br>3kg ~25€ • 5kg ~35€ • 10kg ~60€",
-        quality: "🌱 <b>Quality</b><br>Organic • Untreated • Hand-picked",
-        contact: "📞 <b>Contact</b><br>Email: orodisicilia0@gmail.com",
-        greeting: "Hello! I’m your Oro di Sicilia support bot. 🍊",
-        thanks: "You’re welcome! 🍊",
-        default: "I didn't get that. Ask me about oranges, mandarins, shipping, prices or quality."
-    },
-    DE: {
-        oranges: "🍊 <b>Sizilianische Orangen</b><br>Saison: Dez–Mär • Tarocco: Jan–Mär",
-        mandarins: "🍊 <b>Sizilianische Mandarinen</b><br>Saison: Nov–Jan • Süß und saftig",
-        tarocco: "🔴 <b>Tarocco Orange</b><br>Saison: Jan–Mär • Rotes Fruchtfleisch",
-        lemons: "🍋 <b>Sizilianische Zitronen</b><br>Fast ganzjährig",
-        shipping: "🚚 <b>Versand</b><br>24–48h • Mo–Do • Kostenlos ab 50€",
-        price: "💰 <b>Preise</b><br>3kg ~25€ • 5kg ~35€ • 10kg ~60€",
-        quality: "🌱 <b>Qualität</b><br>Bio • Unbehandelt • Handgepflückt",
-        contact: "📞 <b>Kontakt</b><br>Email: orodisicilia0@gmail.com",
-        greeting: "Hallo! Ich bin Ihr Oro di Sicilia Support Bot. 🍊",
-        thanks: "Gern geschehen! 🍊",
-        default: "Ich habe das nicht verstanden. Fragen Sie nach Orangen, Versand, Preisen usw."
-    }
+const KB={
+IT:{greeting:"Ciao! Sono il bot di supporto di Oro di Sicilia. 🍊",thanks:"Prego! Sempre qui per te. 🍊",default:"Non ho capito. Chiedimi di arance, mandarini, spedizioni, prezzi o qualità.",oranges:"🍊 <b>Arance Siciliane</b><br>Season: Dec–Mar • Tarocco: Jan–Mar",mandarins:"🍊 <b>Mandarini Siciliani</b><br>Season: Nov–Jan • Sweet and juicy",tarocco:"🔴 <b>Tarocco Orange</b><br>Season: Jan–Mar • Red pulp",lemons:"🍋 <b>Limoni Siciliani</b><br>Available almost all year",shipping:"🚚 <b>Shipping</b><br>24–48h • Mon–Thu • Free above 50€",price:"💰 <b>Prices</b><br>3kg ~25€ • 5kg ~35€ • 10kg ~60€",quality:"🌱 <b>Quality</b><br>Organic • Untreated • Hand-picked",contact:"📞 <b>Contact</b><br>Email: orodisicilia0@gmail.com"},
+EN:{greeting:"Hello! I’m your Oro di Sicilia support bot. 🍊",thanks:"You’re welcome! 🍊",default:"I didn't get that. Ask me about oranges, mandarins, shipping, prices or quality.",oranges:"🍊 <b>Sicilian Oranges</b><br>Season: Dec–Mar • Tarocco: Jan–Mar",mandarins:"🍊 <b>Sicilian Mandarins</b><br>Season: Nov–Jan • Sweet and juicy",tarocco:"🔴 <b>Tarocco Orange</b><br>Season: Jan–Mar • Red pulp",lemons:"🍋 <b>Sicilian Lemons</b><br>Available almost all year",shipping:"🚚 <b>Shipping</b><br>24–48h • Mon–Thu • Free above 50€",price:"💰 <b>Prices</b><br>3kg ~25€ • 5kg ~35€ • 10kg ~60€",quality:"🌱 <b>Quality</b><br>Organic • Untreated • Hand-picked",contact:"📞 <b>Contact</b><br>Email: orodisicilia0@gmail"},
+DE:{greeting:"Hallo! Ich bin Ihr Oro di Sicilia Support Bot. 🍊",thanks:"Gern geschehen! 🍊",default:"Ich habe das nicht verstanden. Fragen Sie nach Orangen, Versand, Preisen usw.",oranges:"🍊 <b>Sizilianische Orangen</b><br>Saison: Dez–Mär • Tarocco: Jan–Mär",mandarins:"🍊 <b>Sizilianische Mandarinen</b><br>Saison: Nov–Jan • Süß und saftig",tarocco:"🔴 <b>Tarocco Orange</b><br>Saison: Jan–Mär • Rotes Fruchtfleisch",lemons:"🍋 <b>Sizilianische Zitronen</b><br>Fast ganzjährig",shipping:"🚚 <b>Versand</b><br>24–48h • Mo–Do • Kostenlos ab 50€",price:"💰 <b>Preise</b><br>3kg ~25€ • 5kg ~35€ • 10kg ~60€",quality:"🌱 <b>Qualität</b><br>Bio • Unbehandelt • Handgepflückt",contact:"📞 <b>Kontakt</b><br>Email: orodisicilia0@gmail"}
 };
 
-let currentLang = localStorage.getItem("chatLang") || "EN";
-langSelect.value = currentLang;
-
-langSelect.addEventListener("change", e => {
-    currentLang = e.target.value;
-    localStorage.setItem("chatLang", currentLang);
-});
+let currentLang=localStorage.getItem("chatLang")||"EN";
+langSelect.value=currentLang;
+langSelect.addEventListener("change",e=>{currentLang=e.target.value; localStorage.setItem("chatLang",currentLang);});
 
 function generateReply(userText){
-    const db = KB[currentLang] || KB.EN;
-    const txt = (userText||"").toLowerCase();
-    const triggers = [
-        ["arance","orange","orangen", db.oranges],
-        ["mandarini","mandarin","mandarinen", db.mandarins],
-        ["tarocco","tarocco","tarocco", db.tarocco],
-        ["limoni","lemon","zitronen", db.lemons],
-        ["sped","ship","versand","liefer","delivery", db.shipping],
-        ["prezzo","price","preis","cost", db.price],
-        ["qual","quality","qualitat","bio","organic", db.quality],
-        ["cont","email","phone","kontakt","telefono", db.contact]
-    ];
-
-    if (["ciao","hello","hallo","buong","good","guten","salve"].some(w => txt.includes(w)))
-        return db.greeting;
-
-    if (["grazie","thanks","danke"].some(w => txt.includes(w)))
-        return db.thanks;
-
-    for(const t of triggers){
-        if(t.slice(0,-1).some(k=>txt.includes(k))) return t.at(-1);
-    }
-
+    const db=KB[currentLang]||KB.EN;
+    const txt=(userText||"").toLowerCase();
+    const triggers=[["arance","orange","orangen",db.oranges],["mandarini","mandarin","mandarinen",db.mandarins],["tarocco","tarocco","tarocco",db.tarocco],["limoni","lemon","zitronen",db.lemons],["sped","ship","versand","liefer","delivery",db.shipping],["prezzo","price","preis","cost",db.price],["qual","quality","qualitat","bio","organic",db.quality],["cont","email","phone","kontakt","telefono",db.contact]];
+    
+    if(["ciao","hello","hallo","buong","good","guten","salve"].some(w=>txt.includes(w))) return db.greeting;
+    if(["grazie","thanks","danke"].some(w=>txt.includes(w))) return db.thanks;
+    for(const t of triggers) if(t.slice(0,-1).some(k=>txt.includes(k))) return t.at(-1);
     return db.default;
 }
 
@@ -357,16 +136,15 @@ function addMessage(text,type){
     el.className=type==="bot"?"msg-bot":"msg-user";
     el.innerHTML=text;
     messagesBox.appendChild(el);
-    messagesBox.scrollTop = messagesBox.scrollHeight;
+    messagesBox.scrollTop=messagesBox.scrollHeight;
 }
 
 function toggleChat(open){
-    isChatOpen = typeof open==="boolean"?open:!isChatOpen;
-    if(!isChatOpen){ chatWindow.style.opacity="0"; chatWindow.style.transform="translateY(24px)";
-      setTimeout(()=>{chatWindow.style.display="none"; chatWindow.setAttribute("aria-hidden","true")},260); return;}
-    chatWindow.style.display="flex"; chatWindow.setAttribute("aria-hidden","false");
-    setTimeout(()=>{ chatWindow.style.opacity="1"; chatWindow.style.transform="translateY(0)"; },10);
-    if(!messagesBox.children.length){ setTimeout(()=>addMessage(KB[currentLang].greeting,"bot"),300); }
+    isChatOpen=typeof open==="boolean"?open:!isChatOpen;
+    if(!isChatOpen){chatWindow.style.opacity="0";chatWindow.style.transform="translateY(24px)";setTimeout(()=>{chatWindow.style.display="none";chatWindow.setAttribute("aria-hidden","true")},260);return;}
+    chatWindow.style.display="flex";chatWindow.setAttribute("aria-hidden","false");
+    setTimeout(()=>{chatWindow.style.opacity="1";chatWindow.style.transform="translateY(0)";},10);
+    if(!messagesBox.children.length){setTimeout(()=>addMessage(KB[currentLang].greeting,"bot"),300);}
     setTimeout(()=>inputField.focus(),320);
 }
 
@@ -380,199 +158,9 @@ function sendMessage(){
 chatBubble.addEventListener("click",()=>toggleChat(true));
 closeBtn.addEventListener("click",()=>toggleChat(false));
 sendBtn.addEventListener("click",sendMessage);
-inputField.addEventListener("keypress", e=>{if(e.key==="Enter") sendMessage();});
-document.addEventListener("keydown", e=>{if(e.key==="Escape") toggleChat(false);});
+inputField.addEventListener("keypress",e=>{if(e.key==="Enter")sendMessage();});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")toggleChat(false);});
 </script>
-function addMessage(text, type) {
-    const div = document.createElement("div");
-    const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    
-    div.innerHTML = `
-        <div style="margin-bottom:4px; font-size:11px; color:#666; ${type === 'user' ? 'text-align:right;' : ''}">
-            ${type === 'bot' ? '🍊 Support Bot' : 'You'} • ${timestamp}
-        </div>
-        <div>${text}</div>
-    `;
-</script>
-</head>
-<body>
-  <header>
-    <h1>Oro di Sicilia</h1>
-    <p>Frisches Obst & Gemüse direkt aus Sizilien<br><small><em>Frutta e verdura fresca direttamente dalla Sicilia</em></small></p>
-  </header>
 
-  <main>
-    <section>
-      <h2>Oro di Sicilia – Der Geschmack Siziliens</h2>
-      <small><em>Il gusto autentico della Sicilia</em></small>
-      <p>
-        Frisches Obst und Gemüse direkt aus Sizilien – mit Liebe angebaut, von Hand geerntet und ohne Umwege zu dir gebracht.
-        <strong>Oro di Sicilia</strong> ist ein kleines Familienunternehmen mit Wurzeln in Sizilien.
-        Wir stehen für ehrliche, nachhaltige Landwirtschaft und bringen dir den echten Geschmack unserer Heimat direkt nach Hause.
-      </p>
-    </section>
-
-<section>
-  <h2>Unsere Produkte</h2>
-  <small><em>I nostri prodotti</em></small>
-  <div class="product-grid">
-    <div class="product-card"> 
-      <h3>Blut-Orangen (Tarocco)</h3>
-      <img src="Tarocco" alt="Blut-Orangen (Tarocco)" />
-      <p>3,00 € / kg</p>
-    </div>
-    
-    <div class="product-card">
-      <h3>Navel Orangen</h3>
-      <img src="Navel.jpg" alt="Navel Orangen" />
-      <p>3,00 € / kg</p>
-    </div>
-    
-    <div class="product-card">
-      <h3>Vanille Orangen</h3>
-      <img src="Vanille.jpg" alt="Vanille Orangen" />
-      <p>3,50 € / kg</p>
-    </div>
-    
-    <div class="product-card">
-      <h3>Orangen Marmelade</h3>
-      <img src="Orangen Marmelade.jpg" alt="Orangen Marmelade" />
-      <p>3,99 €</p>
-    </div>
-    
-    <div class="product-card">
-      <h3>Zitronen</h3>
-      <img src="Zitrone" alt="Zitronen" />
-      <p>3,99 € / kg</p>
-    </div>
-    
-    <div class="product-card">
-      <h3>Clementinen</h3>
-      <img src="Clementini" alt="Clementinen" />
-      <p>2,99 € / kg</p>
-    </div>
-    
-    <div class="product-card">
-      <h3>Mandarinen</h3>
-      <img src="Mandarinen.jpg" alt="Mandarinen" />
-      <p>2,90 € / kg</p>
-    </div>
-    
-    <div class="product-card">
-      <h3>Ceder</h3>
-      <img src="Ceder" alt="Ceder" />
-      <p>5,00–6,00 € / Stück</p>
-    </div>
-    
-    <div class="product-card">
-      <h3>Kaktus feige</h3>
-      <img src="Kaktus feige.jpg" alt="Kaktusfeige" />
-      <p>2,50 € / kg</p>
-    </div>
-    
-    <div class="product-card">
-      <h3>Dattel Tomate</h3>
-      <img src="Dattel Tomaten.jpg" alt="Dattel Tomate" />
-      <p>7,00 € / kg</p>
-    </div>
-    
-    <div class="product-card">
-      <h3>San Marzano Tomaten</h3>
-      <img src="San Marzano (Tomate).jpg" alt="San Marzano Tomaten" />
-      <p>5,00 € / kg</p>
-    </div>
-    
-    <div class="product-card">
-      <h3>Merinda Tomaten</h3>
-      <img src="Merinde.jpg" alt="Merinda Tomaten" />
-      <p>6,90 € / kg</p>
-    </div>
-    
-    <div class="product-card">
-      <h3>Getrocknete Tomaten</h3>
-      <img src="Getrocknete Tomaten.jpg" alt="Getrocknete Tomaten" />
-      <p>4,50 €</p>
-    </div>
-    
-    <div class="product-card">
-      <h3>Auberginen</h3>
-      <img src="Auberginen.jpg" alt="Auberginen" />
-      <p>3,99 € / kg</p>
-    </div>
-    
-    <div class="product-card">
-      <h3>Fenchel</h3>
-      <img src="Fenchel.jpg" alt="Fenchel" />
-      <p>2,99 € / kg</p>
-    </div>
-    
-    <div class="product-card">
-      <h3>Artischocken</h3>
-      <img src="Artischocken.jpg" alt="Artischocken" />
-      <p>1,00–1,20 € / Stück</p>
-    </div>
-    
-    <div class="product-card">
-      <h3>Tropea Zwiebeln</h3>
-      <img src="Tropea Zwiebel.jpg" alt="Tropea Zwiebeln" />
-      <p>6,00 € / Bund</p>
-    </div>
-    
-    <div class="product-card">
-      <h3>Weiße Zwiebel</h3>
-      <img src="Weiß Zwiebel.jpg" alt="Weiße Zwiebel" />
-      <p>3,00 € / kg</p>
-    </div>
-    
-    <div class="product-card">
-      <h3>Riesen Zwiebel (Giaratana)</h3>
-      <img src="Giaratana.jpg" alt="Riesen Zwiebel (Giaratana)" />
-      <p>4,00 € / kg</p>
-    </div>
-    
-    <div class="product-card">
-      <h3>Spitz Paprika</h3>
-      <img src="Spitz Paprika.jpg" alt="Spitz Paprika" />
-      <p>2,99 € / kg</p>
-    </div>
-    
-    <div class="product-card">
-      <h3>Paprika (normal)</h3>
-      <img src="Paprika (Normal).jpg" alt="Paprika (Normal)" />
-      <p>3,99 € / kg</p>
-    </div>
-    
-    <div class="product-card">
-      <h3>Lila Blumenkohl</h3>
-      <img src="Lila Blumenkohl.jpg" alt="Lila Blumenkohl" />
-      <p>Preis variabel</p>
-    </div>
-    
-    <div class="product-card">
-      <h3>Stängelkohl</h3>
-      <img src="Stängelkohl.jpg" alt="Stängelkohl" />
-      <p>Preis variabel</p>
-    </div>
-    
-    <div class="product-card">
-      <h3>Olivenöl</h3>
-      <img src="Oliven Öl.jpg" alt="Oliven Öl" />
-      <p>18,00 € / L</p>
-    </div>
-  </div>
-</section>
-
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    &copy; 2025 Oro di Sicilia. Alle Rechte vorbehalten. <br>
-    <small><em>Siamo un'azienda a conduzione familiare. Parliamo anche italiano!</em></small>
-    <p style="margin-top: 0.5rem;">
-      📧 E-Mail: <a href="mailto:orodisicilia0@gmail.com" style="color: white; text-decoration: underline;">orodisicilia0@gmail.com</a><br>
-      ☎️ Telefon: <a href="tel:+4915731156957" style="color: white; text-decoration: underline;">+4915731156957</a>
-    </p>
-  </footer>
+</body>
+</html>
