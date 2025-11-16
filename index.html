@@ -81,30 +81,87 @@
       margin-bottom: 0.5rem;
     }
   </style>
-<!-- Oro di Sicilia Chatbot UI -->
-<div id="chatbox" style="
-    width:100%;max-width:450px;margin:30px auto;background:white;
-    border-radius:10px;padding:20px;box-shadow:0 0 10px rgba(0,0,0,0.1);
-">
-    <h3>🍊 Oro di Sicilia – Chatbot</h3>
+<!-- CHAT-BUBBLE (kleiner runder Button unten rechts) -->
+<div id="chatBubble"
+     style="
+        position: fixed;
+        bottom: 25px;
+        right: 25px;
+        width: 70px;
+        height: 70px;
+        background: #ff9900;
+        border-radius: 50%;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 32px;
+        z-index: 9999;
+     "
+     onclick="toggleChat()">
+    💬
+</div>
+
+<!-- CHAT-FENSTER (öffnet/schließt sich) -->
+<div id="chatWindow"
+     style="
+        position: fixed;
+        bottom: 110px;
+        right: 25px;
+        width: 350px;
+        height: 480px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 5px 18px rgba(0,0,0,0.25);
+        display: none;
+        flex-direction: column;
+        z-index: 9999;
+     ">
+
+    <div style="
+        background:#ff9900;
+        color:white;
+        padding:15px;
+        border-radius:12px 12px 0 0;
+        font-size:18px;
+        font-weight:bold;
+    ">
+        🍊 Oro di Sicilia – Chat
+    </div>
+
     <div id="messages" style="
-        height:350px;overflow-y:auto;margin-bottom:15px;padding-right:10px;
+        flex:1;
+        padding:15px;
+        overflow-y:auto;
+        font-family:Arial;
     "></div>
 
-    <div style="display:flex;gap:10px;">
-        <input type="text" id="userInput" placeholder="Schreib mir eine Frage..." 
-               style="flex:1;padding:10px;border-radius:8px;border:1px solid #ccc;">
-        <button onclick="sendMessage()" style="
-            padding:10px 15px;border:none;background:#ff9900;color:white;
-            border-radius:8px;font-weight:bold;cursor:pointer;
-        ">Senden</button>
+    <div style="padding:10px; display:flex; gap:8px;">
+        <input id="userInput" 
+               type="text" 
+               placeholder="Schreib mir eine Frage..."
+               style="flex:1; padding:10px; border-radius:8px; border:1px solid #ccc;">
+        <button onclick="sendMessage()" 
+                style="padding:10px 15px; border:none; background:#ff9900; color:white; border-radius:8px; font-weight:bold; cursor:pointer;">
+            ➤
+        </button>
     </div>
 </div>
 
 <script>
-// -------------------------
-//  KNOWLEDGE BASE
-// -------------------------
+/* ------------------------------
+   BUBBLE / POPUP LOGIK
+------------------------------ */
+function toggleChat() {
+    const win = document.getElementById("chatWindow");
+    win.style.display = win.style.display === "flex" ? "none" : "flex";
+}
+
+/* ------------------------------
+   KNOWLEDGE BASE
+------------------------------ */
 const knowledgeBase = {
   saison_orangen: {
     patterns: [
@@ -124,23 +181,17 @@ const knowledgeBase = {
   },
 
   saison_mandarinen: {
-    patterns: [
-      "wann kommen die mandarinen", "wann gibt es mandarinen"
-    ],
+    patterns: ["wann kommen die mandarinen", "wann gibt es mandarinen"],
     answer: "Mandarinen gibt es von November bis Januar."
   },
 
   saison_zitronen: {
-    patterns: [
-      "wann kommen die zitronen", "wann gibt es zitronen"
-    ],
+    patterns: ["wann kommen die zitronen", "wann gibt es zitronen"],
     answer: "Zitronen gibt es fast das ganze Jahr. Beste Qualität: Oktober bis Mai."
   },
 
-  season_avocado: {
-    patterns: [
-      "wann kommen die avocados", "wann gibt es avocados"
-    ],
+  avocado: {
+    patterns: ["wann kommen die avocados", "wann gibt es avocados"],
     answer: "Sizilianische Avocados gibt es von November bis März."
   },
 
@@ -149,63 +200,51 @@ const knowledgeBase = {
       "wie lange dauert der versand", "wann wird geliefert",
       "wann kommt meine bestellung", "wie schnell liefert ihr"
     ],
-    answer: "Lieferzeit: 24–48 Stunden nach Versand. Versandtage: Montag–Donnerstag."
+    answer: "Lieferzeit: 24–48h nach Versand. Versandtage: Montag–Donnerstag."
   },
 
   preise: {
-    patterns: [
-      "was kosten die orangen", "wie teuer sind die orangen",
-      "preise", "kosten", "wie viel kostet"
-    ],
-    answer: "Wir bieten 3–15 kg Boxen an. Preise variieren je nach Saison."
+    patterns: ["preise", "kosten", "was kostet", "wie teuer"],
+    answer: "Wir bieten Boxen von 3–15 kg an. Preise variieren je nach Saison."
   },
 
   qualität: {
-    patterns: [
-      "ist die ware frisch", "woher kommt die ware",
-      "seid ihr bio", "sind die früchte unbehandelt"
-    ],
-    answer: "Unsere Früchte sind unbehandelt, naturbelassen und direkt von Familienhöfen aus Sizilien."
+    patterns: ["quality", "frisch", "bio", "unbehandelt", "woher kommt"],
+    answer: "Unsere Früchte sind unbehandelt & naturbelassen direkt vom Bauernhof."
   },
 
   kontakt: {
-    patterns: [
-      "kontakt", "email", "wie kann ich euch erreichen"
-    ],
-    answer: "Du erreichst uns unter: <b>orodisicilia0@gmail.com</b>"
+    patterns: ["kontakt", "email", "wie erreiche ich euch"],
+    answer: "Kontakt: <b>orodisicilia0@gmail.com</b>"
   }
 };
 
-
-// -------------------------
-//  KI SIMILARITY (Levenshtein)
-// -------------------------
+/* ------------------------------
+   KI SIMILARITY (Levenshtein)
+------------------------------ */
 function similarity(a, b) {
   a = a.toLowerCase();
   b = b.toLowerCase();
+  const matrix = Array.from({length: b.length+1}, (_, i) => [i]);
 
-  const matrix = [];
-  for (let i = 0; i <= b.length; i++) matrix[i] = [i];
-  for (let j = 0; j <= a.length; j++) matrix[0][j] = j;
+  for (let j = 1; j <= a.length; j++) matrix[0][j] = j;
 
   for (let i = 1; i <= b.length; i++) {
     for (let j = 1; j <= a.length; j++) {
       matrix[i][j] = Math.min(
-        matrix[i - 1][j] + 1,
-        matrix[i][j - 1] + 1,
-        matrix[i - 1][j - 1] + (b[i - 1] === a[j - 1] ? 0 : 1)
+        matrix[i-1][j] + 1,
+        matrix[i][j-1] + 1,
+        matrix[i-1][j-1] + (b[i-1] === a[j-1] ? 0 : 1)
       );
     }
   }
-
   let dist = matrix[b.length][a.length];
   return 1 - dist / Math.max(a.length, b.length);
 }
 
-
-// -------------------------
-//  BOT LOGIK
-// -------------------------
+/* ------------------------------
+   BOT ANTOWORT FINDEN
+------------------------------ */
 function getBotReply(input) {
   input = input.toLowerCase();
   let bestScore = 0;
@@ -222,24 +261,22 @@ function getBotReply(input) {
   }
 
   if (bestScore > 0.45) return knowledgeBase[bestTopic].answer;
-  return "Ich bin mir nicht sicher – kannst du die Frage etwas genauer stellen? 😊";
+  return "Ich bin mir nicht sicher – kannst du die Frage genauer stellen? 😊";
 }
 
-
-// -------------------------
-//  CHAT UI FUNKTIONEN
-// -------------------------
+/* ------------------------------
+   CHAT UI FUNKTIONEN
+------------------------------ */
 function addMessage(text, type) {
+  const box = document.getElementById("messages");
   const msg = document.createElement("div");
-  msg.className = "msg " + type;
   msg.style = `
     margin:10px 0;padding:10px;border-radius:10px;line-height:1.4;
-    ${type === "bot" ? "background:#ffe9b3;border:1px solid #ffcc66;" : 
+    ${type === "bot" ? "background:#ffe9b3;border:1px solid #ffcc66;" :
                        "background:#e5e5e5;text-align:right;"}
   `;
   msg.innerHTML = text;
-  document.getElementById("messages").appendChild(msg);
-  const box = document.getElementById("messages");
+  box.appendChild(msg);
   box.scrollTop = box.scrollHeight;
 }
 
@@ -250,11 +287,11 @@ function sendMessage() {
 
   addMessage(text, "user");
   const reply = getBotReply(text);
-
-  setTimeout(() => addMessage(reply, "bot"), 300);
+  setTimeout(() => addMessage(reply, "bot"), 350);
   input.value = "";
 }
 </script>
+
 <script>
 document.getElementById("odschat").onclick = () => {
   const w = document.getElementById("odswindow");
