@@ -1,32 +1,33 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="it">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Oro di Sicilia Chatbot</title>
-  <style>
-    body{margin:0; font-family:system-ui,sans-serif; background:#f6f6f6;}
-    #chatBubble{
-      position:fixed; right:24px; bottom:24px; width:56px; height:56px; border-radius:28px;
-      background:#ff8c00; display:flex; align-items:center; justify-content:center;
-      box-shadow:0 6px 18px rgba(0,0,0,.18); cursor:pointer; color:white; font-weight:700; z-index:1000;
-    }
-    #chatWindow{
-      position:fixed; right:24px; bottom:92px; width:320px; max-height:70vh; display:none;
-      flex-direction:column; background:#fff; border-radius:12px; box-shadow:0 10px 30px rgba(0,0,0,.15);
-      overflow:hidden; z-index:1000; transition:all .28s ease;
-    }
-    #chatHeader{ padding:12px 14px; border-bottom:1px solid #eee; display:flex; align-items:center; gap:8px }
-    #messages{ padding:12px; overflow:auto; flex:1; background:#fff8e1; }
-    .msg-bot{ background:#fff8e1; border-left:4px solid #ff8c00; padding:12px; margin:10px 0; border-radius:12px; max-width:82%;}
-    .msg-user{ background:#e3f2fd; padding:12px; margin:10px 0; border-radius:12px; max-width:82%; margin-left:auto; text-align:right;}
-    #controls{ display:flex; gap:8px; padding:10px; border-top:1px solid #eee }
-    #userInput{ flex:1; padding:8px 10px; border-radius:8px; border:1px solid #ddd }
-    #sendBtn{ padding:8px 12px; border-radius:8px; border:0; background:#ff8c00; color:white; cursor:pointer }
-    #langSelect{padding:2px 4px; border-radius:4px; border:1px solid #ddd}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oro di Sicilia Chatbot</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
+<div id="chatBubble">💬</div>
+<div id="chatWindow" aria-hidden="true">
+  <div id="chatHeader">
+    <strong>Oro di Sicilia</strong>
+    <select id="langSelect">
+      <option value="IT">IT</option>
+      <option value="EN">EN</option>
+      <option value="DE">DE</option>
+    </select>
+    <button id="closeBtn">✕</button>
+  </div>
+  <div id="messages"></div>
+  <div id="controls">
+    <input id="userInput" placeholder="Scrivi un messaggio..." />
+    <button id="sendBtn">Invia</button>
+  </div>
+</div>
+<script src="chat.js"></script>
+</body>
+</html>
+
 
 <div id="chatBubble" title="Open chat">💬</div>
 
