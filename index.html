@@ -81,63 +81,120 @@
       margin-bottom: 0.5rem;
     }
   </style>
-  <style>
-#odschat {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 70px;
-  height: 70px;
-  background: #f7c800;
-  border-radius: 50%;
-  box-shadow: 0 4px 20px rgba(0,0,0,.25);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 32px;
-  cursor: pointer;
-  z-index: 9999;
-}
-#odswindow {
-  position: fixed;
-  bottom: 110px;
-  right: 20px;
-  width: 280px;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0,0,0,.25);
-  padding: 16px;
-  display: none;
-  flex-direction: column;
-  gap: 10px;
-  z-index: 9999;
-}
-#odswindow input, #odswindow textarea {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  font-size: 14px;
-}
-#odswindow button {
-  background: #f7c800;
-  border: none;
-  padding: 10px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
-}
+<style>
+  #botBubble {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 70px;
+    height: 70px;
+    background: #f7c800;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(0,0,0,.25);
+    z-index: 9999;
+  }
+
+  #botWindow {
+    position: fixed;
+    bottom: 110px;
+    right: 20px;
+    width: 320px;
+    height: 420px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,.3);
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 9999;
+  }
+
+  #botMessages {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+    font-family: sans-serif;
+  }
+
+  #botInput {
+    display: flex;
+    border-top: 1px solid #ccc;
+  }
+
+  #botInput input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    font-size: 14px;
+  }
+
+  #botInput button {
+    width: 70px;
+    border: none;
+    background: #f7c800;
+    cursor: pointer;
+    font-weight: bold;
+  }
 </style>
 
-<div id="odschat">💬</div>
+<div id="botBubble">💬</div>
 
-<div id="odswindow">
-  <input id="odsname" placeholder="Il tuo nome">
-  <input id="odsemail" placeholder="La tua email">
-  <textarea id="odsmsg" placeholder="Il tuo messaggio"></textarea>
-  <button id="odssend">Invia messaggio</button>
+<div id="botWindow">
+  <div id="botMessages"></div>
+  <div id="botInput">
+    <input id="userInput" placeholder="Schreib mir...">
+    <button id="sendBtn">Send</button>
+  </div>
 </div>
 
+<script>
+  // FAQ-Datenbank
+  const botAnswers = [
+    { q: ["preis", "kosten"], a: "Unsere Preise variieren je nach Produkt und Saison. Frag einfach: Welches Produkt interessiert dich?" },
+    { q: ["versand", "lieferung"], a: "Wir liefern schnell & frisch. Normalerweise zwischen 24–48 Stunden." },
+    { q: ["früchte", "obst", "frutta", "verdura", "gemüse"], a: "Wir bieten frische Früchte und Gemüse direkt aus Sizilien. Was suchst du genau?" },
+    { q: ["öffnungszeiten", "zeiten"], a: "Wir sind online 24/7 erreichbar." },
+    { q: ["kontakt", "email"], a: "Sie erreichen uns unter: orodisicilia0@gmail.com" },
+    { q: ["hallo", "hi", "ciao"], a: "Ciao! Wie kann ich dir helfen?" }
+  ];
+
+  function getBotReply(userText) {
+    userText = userText.toLowerCase();
+    for (let entry of botAnswers) {
+      if (entry.q.some(word => userText.includes(word))) {
+        return entry.a;
+      }
+    }
+    return "Ich habe deine Frage nicht ganz verstanden. Kannst du sie anders formulieren?";
+  }
+
+  const bubble = document.getElementById("botBubble");
+  const windowBox = document.getElementById("botWindow");
+  const messages = document.getElementById("botMessages");
+  const input = document.getElementById("userInput");
+  const sendBtn = document.getElementById("sendBtn");
+
+  bubble.onclick = () => {
+    windowBox.style.display = windowBox.style.display === "flex" ? "none" : "flex";
+  };
+
+  sendBtn.onclick = () => {
+    const text = input.value.trim();
+    if (!text) return;
+
+    messages.innerHTML += `<div><b>Du:</b> ${text}</div>`;
+    const reply = getBotReply(text);
+    messages.innerHTML += `<div><b>Bot:</b> ${reply}</div>`;
+    messages.scrollTop = messages.scrollHeight;
+
+    input.value = "";
+  };
+</script>
 <script>
 document.getElementById("odschat").onclick = () => {
   const w = document.getElementById("odswindow");
