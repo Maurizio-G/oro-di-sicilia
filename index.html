@@ -81,230 +81,297 @@
       margin-bottom: 0.5rem;
     }
   </style>
-<!-- CHAT-BUBBLE (kleiner runder Button unten rechts) -->
-<div id="chatBubble"
-     style="
-        position: fixed;
-        bottom: 25px;
-        right: 25px;
-        width: 70px;
-        height: 70px;
-        background: #ff9900;
-        border-radius: 50%;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-size: 32px;
-        z-index: 9999;
-     "
-     onclick="toggleChat()">
-    💬
-</div>
+<!-- CHAT BUBBLE -->
+<button id="chatBubble" aria-label="Apri chat di supporto" style="
+    position: fixed;
+    bottom: 22px;
+    right: 22px;
+    width: 70px;
+    height: 70px;
+    background: #ff8c00;
+    border-radius: 50%;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: none;
+    outline: none;
+">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Orange_fruit_icon.png" 
+         alt="Chat" style="width:40px; height:40px;">
+</button>
 
-<!-- CHAT-FENSTER (öffnet/schließt sich) -->
-<div id="chatWindow"
-     style="
-        position: fixed;
-        bottom: 110px;
-        right: 25px;
-        width: 350px;
-        height: 480px;
-        background: white;
-        border-radius: 12px;
-        box-shadow: 0 5px 18px rgba(0,0,0,0.25);
-        display: none;
-        flex-direction: column;
-        z-index: 9999;
-     ">
+<!-- CHAT WINDOW -->
+<div id="chatWindow" role="dialog" aria-label="Chat di supporto Oro di Sicilia" aria-modal="true" style="
+    position: fixed;
+    bottom: 120px;
+    right: 22px;
+    width: 380px;
+    max-width: calc(100vw - 40px);
+    height: 540px;
+    max-height: calc(100vh - 140px);
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 10px 28px rgba(0,0,0,0.35);
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 99999;
+    font-family: system-ui, -apple-system, sans-serif;
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+    transition: all 0.35s cubic-bezier(0.25, 0.1, 0.25, 1);
+    border: 1px solid #e5e5e5;
+">
 
-    <div style="
-        background:#ff9900;
-        color:white;
-        padding:15px;
-        border-radius:12px 12px 0 0;
-        font-size:18px;
-        font-weight:bold;
-    ">
-        🍊 Oro di Sicilia – Chat
+    <div style="background:#ff8c00; color:white; padding:18px; font-size:20px; font-weight:bold; display: flex; justify-content: space-between; align-items: center;">
+        <span>🍊 Oro di Sicilia – Support Bot</span>
+        <button id="closeChat" aria-label="Chiudi chat" style="background:none; border:none; color:white; font-size:24px; cursor:pointer; padding:0; width:30px; height:30px; display:flex; align-items:center; justify-content:center;">×</button>
     </div>
 
-    <div id="messages" style="
-        flex:1;
-        padding:15px;
-        overflow-y:auto;
-        font-family:Arial;
-    "></div>
+    <div id="messages" style="flex:1; padding:15px; overflow-y:auto; display:flex; flex-direction:column; gap:12px;"></div>
 
-    <div style="padding:10px; display:flex; gap:8px;">
-        <input id="userInput" 
-               type="text" 
-               placeholder="Schreib mir eine Frage..."
-               style="flex:1; padding:10px; border-radius:8px; border:1px solid #ccc;">
-        <button onclick="sendMessage()" 
-                style="padding:10px 15px; border:none; background:#ff9900; color:white; border-radius:8px; font-weight:bold; cursor:pointer;">
-            ➤
-        </button>
+    <div style="padding:14px; display:flex; gap:10px; border-top:1px solid #eee; background:#f8f8f8;">
+        <input id="userInput" type="text" placeholder="Scrivi qui / Write here / Schreiben Sie hier..."
+            aria-label="Scrivi il tuo messaggio"
+            style="flex:1; padding:12px; border-radius:10px; border:1px solid #ccc; font-size:14px; outline:none; transition:border-color 0.2s;">
+        <button onclick="sendMessage()" aria-label="Invia messaggio" style="
+            padding:12px 18px; background:#ff8c00; border:none; color:white;
+            border-radius:10px; font-weight:bold; cursor:pointer; transition:background-color 0.2s; font-size:16px;">➤</button>
     </div>
 </div>
 
 <script>
 /* ------------------------------
-   BUBBLE / POPUP LOGIK
+   GLOBAL VARIABLES & STATE
 ------------------------------ */
-function toggleChat() {
-    const win = document.getElementById("chatWindow");
-    win.style.display = win.style.display === "flex" ? "none" : "flex";
-}
+let isChatOpen = false;
+const chatBubble = document.getElementById("chatBubble");
+const chatWindow = document.getElementById("chatWindow");
+const userInput = document.getElementById("userInput");
+const messagesContainer = document.getElementById("messages");
 
 /* ------------------------------
-   KNOWLEDGE BASE
+   ENHANCED KNOWLEDGE BASE
 ------------------------------ */
-const knowledgeBase = {
-  saison_orangen: {
-    patterns: [
-      "wann kommen die orangen", "wann gibt es orangen",
-      "ab wann habt ihr orangen", "wann ist orangensaison",
-      "wann kann ich orangen bestellen", "wann starten die orangen"
-    ],
-    answer: "Orangen kommen von Dezember bis März. Tarocco ab Januar."
-  },
+const KB = {
+    DE: {
+        greeting: "Hallo! Ich bin Ihr Unterstützungs-Bot für Oro di Sicilia. 🍊<br>Fragen Sie mich nach Orangen, Mandarinen, Lieferung, Preisen und mehr!",
+        oranges: "Orangen kommen von Dezember bis März. Tarocco ab Januar. Frisch von sizilianischen Bauernhöfen.",
+        mandarins: "Mandarinen gibt es von November bis Januar. Saftig und süß!",
+        tarocco: "Tarocco-Orangen sind von Januar bis März verfügbar. Bekannt für ihre rote Farbe und Süße.",
+        lemons: "Zitronen fast das ganze Jahr. Beste Qualität: Oktober bis Mai.",
+        shipping: "Lieferzeit: 24–48h nach Versand. Versandtage: Montag bis Donnerstag. Kostenloser Versand ab 50€.",
+        price: "Boxen 3–15 kg, Preise saisonabhängig. 3kg Box: ~25€, 5kg Box: ~35€, 10kg Box: ~60€.",
+        quality: "Unsere Früchte sind unbehandelt, naturbelassen und von zertifizierten Bauernhöfen.",
+        contact: "Kontakt: <b>orodisicilia0@gmail.com</b><br>Telefon: +39 123 456 7890",
+        thanks: "Gern geschehen! Bei weiteren Fragen stehe ich bereit. 🍊",
+        default: "Entschuldigung, ich habe das nicht verstanden. Könnten Sie Ihre Frage anders formulieren? Sie können nach Orangen, Mandarinen, Lieferung, Preisen oder Qualität fragen."
+    },
 
-  saison_tarocco: {
-    patterns: [
-      "wann kommen die tarocco", "wann gibt es tarocco",
-      "wann ist tarocco saison", "ab wann habt ihr tarocco"
-    ],
-    answer: "Tarocco-Orangen sind von Januar bis März verfügbar."
-  },
+    IT: {
+        greeting: "Ciao! Sono il bot di supporto di Oro di Sicilia. 🍊<br>Chiedimi di arance, mandarini, spedizioni, prezzi e altro!",
+        oranges: "Le arance arrivano da dicembre a marzo. Le Tarocco da gennaio. Fresche dai agrumeti siciliani.",
+        mandarins: "I mandarini sono disponibili da novembre a gennaio. Succosi e dolci!",
+        tarocco: "Le Tarocco sono disponibili da gennaio a marzo. Note per il loro colore rosso e dolcezza.",
+        lemons: "I limoni quasi tutto l'anno. Migliore qualità: ottobre-maggio.",
+        shipping: "Consegna in 24–48h dalla spedizione. Spedizioni lunedì-giovedì. Spedizione gratuita sopra 50€.",
+        price: "Box da 3–15 kg. Prezzi stagionali. Box 3kg: ~25€, 5kg: ~35€, 10kg: ~60€.",
+        quality: "Frutta naturale, non trattata, da aziende familiari certificate.",
+        contact: "Email: <b>orodisicilia0@gmail.com</b><br>Telefono: +39 123 456 7890",
+        thanks: "Prego! Sono qui per qualsiasi altra domanda. 🍊",
+        default: "Mi dispiace, non ho capito. Potreste riformulare la domanda? Potete chiedere di arance, mandarini, spedizioni, prezzi o qualità."
+    },
 
-  saison_mandarinen: {
-    patterns: ["wann kommen die mandarinen", "wann gibt es mandarinen"],
-    answer: "Mandarinen gibt es von November bis Januar."
-  },
-
-  saison_zitronen: {
-    patterns: ["wann kommen die zitronen", "wann gibt es zitronen"],
-    answer: "Zitronen gibt es fast das ganze Jahr. Beste Qualität: Oktober bis Mai."
-  },
-
-  avocado: {
-    patterns: ["wann kommen die avocados", "wann gibt es avocados"],
-    answer: "Sizilianische Avocados gibt es von November bis März."
-  },
-
-  versand: {
-    patterns: [
-      "wie lange dauert der versand", "wann wird geliefert",
-      "wann kommt meine bestellung", "wie schnell liefert ihr"
-    ],
-    answer: "Lieferzeit: 24–48h nach Versand. Versandtage: Montag–Donnerstag."
-  },
-
-  preise: {
-    patterns: ["preise", "kosten", "was kostet", "wie teuer"],
-    answer: "Wir bieten Boxen von 3–15 kg an. Preise variieren je nach Saison."
-  },
-
-  qualität: {
-    patterns: ["quality", "frisch", "bio", "unbehandelt", "woher kommt"],
-    answer: "Unsere Früchte sind unbehandelt & naturbelassen direkt vom Bauernhof."
-  },
-
-  kontakt: {
-    patterns: ["kontakt", "email", "wie erreiche ich euch"],
-    answer: "Kontakt: <b>orodisicilia0@gmail.com</b>"
-  }
+    EN: {
+        greeting: "Hello! I'm your support bot for Oro di Sicilia. 🍊<br>Ask me about oranges, mandarins, shipping, prices and more!",
+        oranges: "Oranges are available from December to March. Tarocco from January. Fresh from Sicilian farms.",
+        mandarins: "Mandarins are available from November to January. Juicy and sweet!",
+        tarocco: "Tarocco oranges are available from January to March. Known for their red color and sweetness.",
+        lemons: "Lemons almost all year. Best quality: October to May.",
+        shipping: "Delivery 24–48h after shipping. Shipping Monday-Thursday. Free shipping above 50€.",
+        price: "Boxes 3–15 kg. Seasonal pricing. 3kg box: ~25€, 5kg: ~35€, 10kg: ~60€.",
+        quality: "Our fruits are natural, untreated, from certified family farms.",
+        contact: "Contact: <b>orodisicilia0@gmail.com</b><br>Phone: +39 123 456 7890",
+        thanks: "You're welcome! I'm here for any other questions. 🍊",
+        default: "Sorry, I didn't understand that. Could you rephrase your question? You can ask about oranges, mandarins, shipping, prices or quality."
+    }
 };
 
 /* ------------------------------
-   KI SIMILARITY (Levenshtein)
+   IMPROVED LANGUAGE DETECTION
 ------------------------------ */
-function similarity(a, b) {
-  a = a.toLowerCase();
-  b = b.toLowerCase();
-  const matrix = Array.from({length: b.length+1}, (_, i) => [i]);
+function detectLanguage(text) {
+    const t = text.toLowerCase();
+    
+    const patterns = {
+        IT: [/grazie/i, /perfetto/i, /ottimo/i, /spedizione/i, /consegna/i, /quando/i, /prezzo/i, /costo/i],
+        DE: [/danke/i, /perfekt/i, /ausgezeichnet/i, /lieferung/i, /versand/i, /wann/i, /preis/i, /kosten/i]
+    };
 
-  for (let j = 1; j <= a.length; j++) matrix[0][j] = j;
-
-  for (let i = 1; i <= b.length; i++) {
-    for (let j = 1; j <= a.length; j++) {
-      matrix[i][j] = Math.min(
-        matrix[i-1][j] + 1,
-        matrix[i][j-1] + 1,
-        matrix[i-1][j-1] + (b[i-1] === a[j-1] ? 0 : 1)
-      );
-    }
-  }
-  let dist = matrix[b.length][a.length];
-  return 1 - dist / Math.max(a.length, b.length);
+    if (patterns.IT.some(pattern => pattern.test(t))) return "IT";
+    if (patterns.DE.some(pattern => pattern.test(t))) return "DE";
+    
+    // Default to English for mixed or unclear language
+    return "EN";
 }
 
 /* ------------------------------
-   BOT ANTOWORT FINDEN
+   ADVANCED PATTERN MATCHING
 ------------------------------ */
 function getBotReply(input) {
-  input = input.toLowerCase();
-  let bestScore = 0;
-  let bestTopic = null;
+    const lang = detectLanguage(input);
+    const t = input.toLowerCase().trim();
 
-  for (let topic in knowledgeBase) {
-    for (let pattern of knowledgeBase[topic].patterns) {
-      let score = similarity(input, pattern);
-      if (score > bestScore) {
-        bestScore = score;
-        bestTopic = topic;
-      }
+    // Greeting detection
+    if (t.match(/(ciao|hello|hallo|buongiorno|good morning|guten tag|hey|hi|salve)/)) {
+        return KB[lang].greeting;
     }
-  }
 
-  if (bestScore > 0.45) return knowledgeBase[bestTopic].answer;
-  return "Ich bin mir nicht sicher – kannst du die Frage genauer stellen? 😊";
+    // Thanks detection
+    if (t.match(/(grazie|thanks|danke|thank you|dankeschön)/)) {
+        return KB[lang].thanks;
+    }
+
+    // Enhanced pattern matching with better coverage
+    const patterns = {
+        oranges: [/\borange?s?\b/i, /\barance?\b/i, /\baranci?\b/i, /\borangen\b/i],
+        mandarins: [/\bmandarini?\b/i, /\bmandarine?s?\b/i, /\bmandarinen\b/i],
+        tarocco: [/\btarocco\b/i],
+        lemons: [/\blemons?\b/i, /\blimoni?\b/i, /\bzitronen?\b/i],
+        shipping: [/\bshipping\b/i, /\bspedizione\b/i, /\bversand\b/i, /\blieferung\b/i, /\bdelivery\b/i, /\bconsegna\b/i],
+        price: [/\bprice\b/i, /\bprezzo?\b/i, /\bpreis\b/i, /\bcosto?\b/i, /\bkosten?\b/i, /\bhow much\b/i],
+        quality: [/\bquality\b/i, /\bqualità\b/i, /\bqualitat\b/i, /\bbio\b/i, /\borganic\b/i, /\bnatural\b/i],
+        contact: [/\bcontact\b/i, /\bemail\b/i, /\bkontakt\b/i, /\bcontatto\b/i, /\bphone\b/i, /\btelefono\b/i, /\bnumber\b/i]
+    };
+
+    for (const [key, regexArray] of Object.entries(patterns)) {
+        if (regexArray.some(regex => regex.test(t))) {
+            return KB[lang][key];
+        }
+    }
+
+    return KB[lang].default;
 }
 
 /* ------------------------------
-   CHAT UI FUNKTIONEN
+   ENHANCED UI MESSAGE SYSTEM
 ------------------------------ */
 function addMessage(text, type) {
-  const box = document.getElementById("messages");
-  const msg = document.createElement("div");
-  msg.style = `
-    margin:10px 0;padding:10px;border-radius:10px;line-height:1.4;
-    ${type === "bot" ? "background:#ffe9b3;border:1px solid #ffcc66;" :
-                       "background:#e5e5e5;text-align:right;"}
-  `;
-  msg.innerHTML = text;
-  box.appendChild(msg);
-  box.scrollTop = box.scrollHeight;
+    const div = document.createElement("div");
+    const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    
+    div.innerHTML = `
+        <div style="margin-bottom:4px; font-size:11px; color:#666; ${type === 'user' ? 'text-align:right;' : ''}">
+            ${type === 'bot' ? '🍊 Support Bot' : 'You'} • ${timestamp}
+        </div>
+        <div>${text}</div>
+    `;
+    
+    div.style.cssText = `
+        margin: 0; 
+        padding: 12px; 
+        border-radius: 16px; 
+        max-width: 85%;
+        word-wrap: break-word;
+        ${type === "bot" 
+            ? "background:#fff8e1; border:1px solid #ffe082; align-self:flex-start; border-bottom-left-radius:4px;" 
+            : "background:#e3f2fd; border:1px solid #90caf9; align-self:flex-end; border-bottom-right-radius:4px; margin-left:auto; text-align:left;"}
+    `;
+
+    messagesContainer.appendChild(div);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+}
+
+/* ------------------------------
+   IMPROVED CHAT MANAGEMENT
+------------------------------ */
+function toggleChat() {
+    isChatOpen = !isChatOpen;
+    
+    if (isChatOpen) {
+        chatWindow.style.display = "flex";
+        setTimeout(() => {
+            chatWindow.style.opacity = "1";
+            chatWindow.style.transform = "translateY(0) scale(1)";
+        }, 10);
+        
+        // Add welcome message if first time
+        if (messagesContainer.children.length === 0) {
+            setTimeout(() => {
+                const lang = detectLanguage(navigator.language || navigator.userLanguage);
+                addMessage(KB[lang].greeting, "bot");
+            }, 300);
+        }
+        
+        // Focus input
+        setTimeout(() => userInput.focus(), 350);
+    } else {
+        chatWindow.style.opacity = "0";
+        chatWindow.style.transform = "translateY(40px) scale(0.95)";
+        setTimeout(() => chatWindow.style.display = "none", 300);
+    }
 }
 
 function sendMessage() {
-  const input = document.getElementById("userInput");
-  const text = input.value.trim();
-  if (!text) return;
+    const val = userInput.value.trim();
+    if (!val) return;
 
-  addMessage(text, "user");
-  const reply = getBotReply(text);
-  setTimeout(() => addMessage(reply, "bot"), 350);
-  input.value = "";
+    addMessage(val, "user");
+    userInput.value = "";
+
+    // Simulate typing delay
+    setTimeout(() => {
+        const reply = getBotReply(val);
+        addMessage(reply, "bot");
+    }, 800 + Math.random() * 600);
 }
+
+/* ------------------------------
+   EVENT LISTENERS & ACCESSIBILITY
+------------------------------ */
+chatBubble.addEventListener("click", toggleChat);
+
+document.getElementById("closeChat").addEventListener("click", (e) => {
+    e.stopPropagation();
+    isChatOpen = true;
+    toggleChat();
+});
+
+// Keyboard support
+userInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+        sendMessage();
+    }
+});
+
+// Close chat with Escape key
+document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && isChatOpen) {
+        toggleChat();
+    }
+});
+
+// Better hover effects
+chatBubble.addEventListener("mouseenter", () => {
+    chatBubble.style.transform = "scale(1.1)";
+});
+chatBubble.addEventListener("mouseleave", () => {
+    chatBubble.style.transform = "scale(1)";
+});
+
+// Click outside to close
+document.addEventListener("click", (e) => {
+    if (isChatOpen && 
+        !chatWindow.contains(e.target) && 
+        !chatBubble.contains(e.target)) {
+        toggleChat();
+    }
+});
 </script>
-
-<script>
-document.getElementById("odschat").onclick = () => {
-  const w = document.getElementById("odswindow");
-  w.style.display = w.style.display === "flex" ? "none" : "flex";
-};
-
-document.getElementById("odssend").onclick = () => {
-  const nome = document.getElementById("odsname").value;
-  const email = document.getElementById("odsemail").value;
-  const msg = document.getElementById("odsmsg").value;
-
-  const mailto = `mailto:orodisicilia0@gmail.com?subject=Nuovo%20Messaggio%20dal%20Sito&body=Nome:%20${encodeURIComponent(nome)}%0AEmail:%20${encodeURIComponent(email)}%0AMessaggio:%20${encodeURIComponent(msg)}`;
-
   window.location.href = mailto;
 };
 </script>
